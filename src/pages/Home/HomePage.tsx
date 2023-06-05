@@ -2,6 +2,9 @@ import { AiFillGithub } from 'react-icons/ai'
 import { BsGoogle } from 'react-icons/bs'
 
 export function HomePage () {
+
+
+  
 return (
 <div className="min-h-[100vh] flex justify-center items-center">
   <div className="flex flex-col gap-y-4 px-8 py-4 border-[1px] border-[#aaaaaa] rounded-xl">
