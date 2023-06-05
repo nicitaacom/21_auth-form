@@ -1,7 +1,19 @@
+import axios, { AxiosResponse } from 'axios'
+import { useEffect } from 'react'
 import { AiFillGithub } from 'react-icons/ai'
 import { BsGoogle } from 'react-icons/bs'
 
 export function HomePage () {
+
+  useEffect(() => {
+    (axios.get('http://localhost:7121')
+    .then((response:AxiosResponse<any>) => {
+      console.log('data = ' + response.data)
+    }))
+  },[])
+  
+  
+
 return (
 <div className="min-h-[100vh] flex justify-center items-center">
   <div className="flex flex-col gap-y-4 px-8 py-4 border-[1px] border-[#aaaaaa] rounded-xl">
