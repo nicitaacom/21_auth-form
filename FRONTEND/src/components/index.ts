@@ -1,4 +1,3 @@
-import {Navbar} from './Navbar/Navbar'
-import {Footer} from './Footer/Footer'
+import {Book} from './Book'
 
-export {Navbar,Footer}
+export {Book}
