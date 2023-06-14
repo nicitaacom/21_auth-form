@@ -2,7 +2,7 @@ import { useEffect,useState } from "react"
 import axios, { AxiosError } from "axios"
 
 export function useBooks() {
-const [books,setBooks] = useState<any[]>([])
+  const [books,setBooks] = useState<any[]>([])
   const [loading,setLoading] = useState(false)
   const [error,setError] = useState('')
 
@@ -12,7 +12,9 @@ const [books,setBooks] = useState<any[]>([])
       setError('')
       setLoading(true)
       const response = await axios.get<any[]>('https://localhost:7123/api/BookStore/')
-      setBooks(response.data)
+      setBooks(response.data.books)
+      console.log('response.data = ' + response.data)
+      console.log('response.data.books = ' + response.data.books)
       setLoading(false)
     } catch(e:unknown) {
       const error = e as AxiosError
@@ -22,7 +24,7 @@ const [books,setBooks] = useState<any[]>([])
   }
 
   useEffect(()=> {
-fetchBooks()
+    fetchBooks()
   },[])
   return { books, error, loading}
 }
