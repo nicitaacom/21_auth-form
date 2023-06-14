@@ -13,6 +13,8 @@ export function useBooks() {
       setLoading(true)
       const response = await axios.get<any[]>('https://localhost:7123/api/BookStore/')
       setBooks(response.data.books)
+      console.log('response.data = ' + response.data)
+      console.log('response.data.books = ' + response.data.books)
       setLoading(false)
     } catch(e:unknown) {
       const error = e as AxiosError
