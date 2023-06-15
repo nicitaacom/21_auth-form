@@ -10,15 +10,17 @@ export function useBooks() {
 
   async function fetchBooks(){
     try {
-      setError('')
       setLoading(true)
-      await fetch('https://localhost:7123/api/BookStore/')
-      .then(response => response.json())
-      .finally(json => {
-        console.log(json.books)
-        setBooks(json.books)
-        setLoading(false)
-      })     
+      const response = await fetch('https://localhost:7123/api/BookStore/')
+      const data = await response.json()
+      debugger
+      // .then(response => response.json())
+      // .finally(json => {
+      //   console.log(json.books)
+      //   setBooks(json.books)
+      //   setLoading(false)
+      // }) 
+          
     } catch(e:unknown) {
       const error = e as AxiosError
       setLoading(false)
