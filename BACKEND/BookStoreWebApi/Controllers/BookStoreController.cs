@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BookStoreWebApi.Controllers
 {
-	[Authorize]
+	//[Authorize]
 	[Route("api/[controller]")]
 	public class BookStoreController : BaseController
 	{
@@ -18,7 +18,7 @@ namespace BookStoreWebApi.Controllers
 		public BookStoreController(IMapper mapper) =>
 			_mapper = mapper;
 
-		[Authorize]
+	
 		[HttpGet]
 		public async Task<ActionResult<BookListVm>> GetAll()
 		{
