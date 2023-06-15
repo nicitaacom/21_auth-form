@@ -112,12 +112,12 @@ builder.Services.AddCors(options =>
         policy.WithOrigins(builder.Configuration.GetSection("Cors:Urls").Get<string[]>()!);
     });
 
-	//options.AddPolicy("Free", policy =>
-	//{
-	//	policy.AllowAnyHeader();
-	//	policy.AllowCredentials();
-	//	policy.AllowAnyMethod();
-	//});
+	options.AddPolicy("Free", policy =>
+	{
+		policy.AllowAnyHeader();
+		policy.AllowCredentials();
+		policy.AllowAnyMethod();
+	});
 });
 
 var app = builder.Build();
