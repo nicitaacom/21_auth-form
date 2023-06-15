@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-export function Book({book}:any) {
+export function Book(book:any) {
        const [details, setDetails] = useState(false)
 
         const btnBgClassName = details ? 'bg-yellow-400' : 'bg-blue-400'

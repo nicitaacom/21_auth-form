@@ -7,12 +7,23 @@ import { useState } from 'react'
 
 export function HomePage () {
 
+  const booksExamplebad = {
+    booksExamplee:
+    [
+      {id:'1',title:'the first...',genre:'History'},
+      {id:'2',title:'the repablic...',genre:'Psihology'},
+      {id:'3',title:'ASP NET...',genre:'Programming'},
+    ]
+  }
+
+ console.log('example = ' + JSON.stringify(booksExamplebad))
+
   const {loading,error,books} = useBooks()
 
   
 
-  console.log(books.map(book => {'book id = ' + book.id}))
-  console.log(books.map(book => {'book title = ' + book.title}))
+  // console.log(books.map(book => {'book id = ' + book.id}))
+  // console.log(books.map(book => {'book title = ' + book.title}))
 
   const [loginValue,setLoginValue] = useState('')
   const [passwordValue,setPasswordValue] = useState('')
@@ -54,7 +65,8 @@ return (
     <h1 className="text-2xl font-bold text-center">Books</h1>
     {loading && <p>Loading...</p>}
     { error && <p className='text-center text-red-600'>{error}</p>}
-    {books.books.map(book => <Book book={book} key={book.id}/>)}
+    {books.map(book => <Book key={book.id} {...book} />)}
+    {/* {booksExamplebad.booksExamplee.map(book => <Book book={book} key={book.id}/>)} */}
   </div>
 
 </div>
