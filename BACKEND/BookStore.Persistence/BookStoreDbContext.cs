@@ -70,6 +70,7 @@ namespace BookStore.Persistence
             {
                 Id = new Guid("A4A67768-DEDA-43BC-A545-A67D1ABDA650"),
                 Email = "customer@gmail.com",
+                NormalizedEmail = "CUSTOMER@GMAIL.COM",
                 EmailConfirmed = true,
                 FirstName = "Dante",
                 LastName = "Sparda",
@@ -83,6 +84,7 @@ namespace BookStore.Persistence
                 Id = new Guid("12539B7B-B1E6-4A04-BE98-6921487CAEF3"),
                 Email = "admin@gmail.com",
                 EmailConfirmed = true,
+                NormalizedEmail = "ADMING@GMAIL.COM",
                 FirstName = "Vergil",
                 LastName = "Sparda",
                 MiddleName = "Spardovich",
