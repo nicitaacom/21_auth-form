@@ -1,17 +1,16 @@
 /* react */
 import { Route, Routes } from "react-router-dom"
-/* components */
-import { Navbar, Footer } from './components/'
 /* sections */
-import { HomePage } from "./pages"
+import { HomePage, RootPage } from "./pages"
 
 function App() {
 
   return (
     <>
-          <Routes>
-           <Route path="/" element={<HomePage/>}/>
-         </Routes>
+      <Routes>
+        <Route path="/" element={<RootPage />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
     </>
   )
 }
