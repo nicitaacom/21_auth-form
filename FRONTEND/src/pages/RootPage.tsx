@@ -1,10 +1,9 @@
-import { Books, Auth } from './Home/sections'
+import { Auth } from './Home/sections'
 
 export function RootPage() {
   return (
-    <div className="min-h-[100vh] flex flex-col gap-y-16 justify-center items-center">
+    <div className="relative min-h-[100vh] max-w-full flex flex-col gap-y-16 justify-center items-center overflow-hidden">
       <Auth />
-      <Books />
     </div>
   )
 }

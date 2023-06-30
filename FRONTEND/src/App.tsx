@@ -1,7 +1,7 @@
 /* react */
 import { Route, Routes } from "react-router-dom"
 /* sections */
-import { HomePage, RootPage } from "./pages"
+import { BooksPage, HomePage, RootPage } from "./pages"
 
 function App() {
 
@@ -10,6 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<RootPage />} />
         <Route path="/home" element={<HomePage />} />
+        <Route path="/books" element={<BooksPage />} />
       </Routes>
     </>
   )

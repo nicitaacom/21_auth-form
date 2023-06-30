@@ -8,6 +8,9 @@ import { Navigate } from "react-router-dom";
 type Variant = 'LOGIN' | 'REGISTER' | 'FORGOT'
 
 
+
+
+
 export function Auth() {
 
 
@@ -15,26 +18,87 @@ export function Auth() {
   const [variant, setVariant] = useState<Variant>('LOGIN')
 
   const [checked, setChecked] = useState(true)
+  const [error, setError] = useState<unknown>()
+
+  //values for login
   const [loginValue, setLoginValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
-  const [error, setError] = useState<unknown>()
-  const [authData, setAuthData] = useState({
+  const [loginData, setLoginData] = useState({
     login: '',
     password: ''
+  })
+
+  //values for register
+  const [emailValue, setEmailValue] = useState('')
+  const [userNameValue, setUserNameValue] = useState('')
+  const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
+  const [firstNameValue, setFirstNameValue] = useState('')
+  const [middleNameValue, setMiddleNameValue] = useState('')
+  const [lastNameValue, setLastNameValue] = useState('')
+  const [registerData, setRegisterData] = useState({
+    email: '',
+    userName: '',
+    password: '',
+    passwordConfirm: '',
+    firstName: '',
+    middleName: '',
+    lastName: ''
   })
 
 
 
 
-  async function Login() {
-    setAuthData({ login: loginValue, password: passwordValue })
-    console.info('auth data:' + JSON.stringify(authData)),
+
+
+  /* Register */
+  async function Register() {
+    setRegisterData({
+      email: emailValue, userName: userNameValue, password: passwordValue, passwordConfirm: confirmPasswordValue,
+      firstName: firstNameValue, middleName: middleNameValue, lastName: lastNameValue
+    })
+    console.info('auth data:' + JSON.stringify(loginData)),
       console.info('login value:' + loginValue),
       console.info('password value:' + passwordValue)
 
     try {
-      //sending request with authData to server
-      const response = await axios.post('https://localhost:7123/api/Accounts/login', { authData })
+      //sending request with loginData to server
+      const response = await axios.post('https://localhost:7123/api/Accounts/login', { registerData })
+
+      //response from server (isAuthorized true/false)
+
+      //isAuthorized
+      const { token } = response.data
+      console.log(response.data)
+      localStorage.setItem('token', token)
+      //send verification email
+      return <Navigate to="/home" replace={true} />
+
+      //!isAuthorized
+
+    } catch (AxiosError) {
+      setError(AxiosError)
+    }
+  }
+
+
+
+
+
+
+
+  /* Login */
+  async function Login() {
+    setLoginData({
+      login: loginValue, password: passwordValue
+
+    })
+    console.info('auth data:' + JSON.stringify(loginData)),
+      console.info('login value:' + loginValue),
+      console.info('password value:' + passwordValue)
+
+    try {
+      //sending request with loginData to server
+      const response = await axios.post('https://localhost:7123/api/Accounts/login', { loginData })
 
       //response from server (isAuthorized true/false)
 
@@ -52,19 +116,29 @@ export function Auth() {
   }
 
 
+
+
+
+
+  /* Recover */
+  async function Recover() {
+    //recover in the feature
+  }
+
+
   return (
     <div className='overflow-hidden border-[1px] border-gray-500 rounded-xl'>
       <div className={`flex p-6 transition-all duration-500
         ${variant === 'FORGOT' && 'h-[14rem] translate-x-[100%]'}
   ${variant === 'LOGIN' && 'h-[24rem]'}
-  ${variant === 'REGISTER' && 'h-[26.5rem] translate-x-[-100%]'}`}>
+  ${variant === 'REGISTER' && 'h-[38rem] translate-x-[-100%]'}`}>
         {/* FORGOT */}
         <form onSubmit={e => e.preventDefault()} className={`w-full flex flex-col gap-4 top-0 right-full text-center p-4 absolute`}>
           <h1 className='text-2xl font-bold'>Enter your email</h1>
           <input className="rounded px-4 py-2" type="email" placeholder="Email"
             value={loginValue} onChange={e => setLoginValue(e.target.value)} />
           <button className="px-4 py-2 bg-gray-400 rounded-xl"
-            onClick={() => { Login() }}>Login</button>
+            onClick={() => { Recover() }}>Login</button>
           <p>Remember your password? <a className={`text-emerald-600 cursor-pointer`} onClick={() => setVariant('LOGIN')}>
             {variant === 'FORGOT' ? 'Log in' : 'Forgot Password?'}
           </a></p>
@@ -76,7 +150,7 @@ export function Auth() {
             <input className="rounded px-4 py-2" type="email" placeholder="Email"
               value={loginValue} onChange={e => setLoginValue(e.target.value)} />
             <input className="rounded px-4 py-2" type="password" placeholder="Passowrd"
-              value={loginValue} onChange={e => setLoginValue(e.target.value)} />
+              value={passwordValue} onChange={e => setPasswordValue(e.target.value)} />
             <div className='flex justify-between'>
               <div className="remember-me">
                 <input type="checkbox" id="check" checked={checked}
@@ -107,12 +181,20 @@ export function Auth() {
         <form className='w-full flex flex-col gap-4 top-0 left-full p-4 absolute text-center' onSubmit={e => e.preventDefault()}>
           <h1 className='text-2xl font-bold'>Register</h1>
           <div className='flex flex-col gap-2'>
-            <input className="rounded px-4 py-2" type="text" placeholder="Nickname"
-              value={loginValue} onChange={e => setLoginValue(e.target.value)} />
+            <input className="rounded px-4 py-2" type="text" placeholder="UserName"
+              value={userNameValue} onChange={e => setUserNameValue(e.target.value)} />
             <input className="rounded px-4 py-2" type="email" placeholder="Email"
-              value={loginValue} onChange={e => setLoginValue(e.target.value)} />
+              value={emailValue} onChange={e => setEmailValue(e.target.value)} />
             <input className="rounded px-4 py-2" type="password" placeholder="Passowrd"
-              value={loginValue} onChange={e => setLoginValue(e.target.value)} />
+              value={passwordValue} onChange={e => setPasswordValue(e.target.value)} />
+            <input className="rounded px-4 py-2" type="password" placeholder="Confirm password"
+              value={confirmPasswordValue} onChange={e => setConfirmPasswordValue(e.target.value)} />
+            <input className="rounded px-4 py-2" type="text" placeholder="First name"
+              value={firstNameValue} onChange={e => setFirstNameValue(e.target.value)} />
+            <input className="rounded px-4 py-2" type="text" placeholder="Middle name"
+              value={middleNameValue} onChange={e => setMiddleNameValue(e.target.value)} />
+            <input className="rounded px-4 py-2" type="text" placeholder="Last name"
+              value={lastNameValue} onChange={e => setLastNameValue(e.target.value)} />
             <div className='flex justify-between'>
               <div className="remember-me">
                 <input type="checkbox" id="check" checked={checked}
@@ -125,7 +207,7 @@ export function Auth() {
             </div>
           </div>
           <button className="px-4 py-2 bg-gray-400 rounded-xl"
-            onClick={() => { Login() }}>Login</button>
+            onClick={() => { Register() }}>Register</button>
           <div className='flex justify-center flex-wrap gap-2 overflow-x-hidden'>
             <button className="px-4 py-2 flex gap-x-4 bg-transparent border-[1px] border-[#aaaaaa] rounded-xl text-white"
               onClick={() => {/* BACKEND-Social-auth-with-google-provider*/ }}>
