@@ -1,2 +1,2 @@
-export { Login } from "./Login";
-export { Books } from "./Books";
+export { Auth } from "./Auth"
+export { Books } from "./Books"
