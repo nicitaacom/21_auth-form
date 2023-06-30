@@ -62,7 +62,7 @@ export function Auth() {
 
     try {
       //sending request with loginData to server
-      const response = await axios.post('https://localhost:7123/api/Accounts/login', { registerData })
+      const response = await axios.post('https://localhost:7123/api/Accounts/register', { registerData })
 
       //response from server (isAuthorized true/false)
 
