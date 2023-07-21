@@ -1,4 +1,3 @@
-import { useHistory } from 'react-router-dom';
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 import { useState } from 'react'
 import axios from 'axios'
@@ -39,12 +38,9 @@ export function Auth() {
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
 
 
-  const navigate = useNavigate()
-
-
 
   /* Register */
-  const history = useHistory()
+
   const setAuthorizationHeader = (token: string) => {
     if (token) {
       // Set the authorization header with the bearer token
@@ -53,9 +49,11 @@ export function Auth() {
       // Remove the authorization header if no token is provided
       delete axios.defaults.headers.common['Authorization'];
     }
-  };
+  }
 
   async function Register() {
+
+
     const payload = {
       email: emailValue,
       userName: userNameValue,
@@ -64,6 +62,8 @@ export function Auth() {
     };
 
     try {
+
+
       const response = await axios.post<IRegister>(
         'https://localhost:7123/api/Accounts/register',
         payload
@@ -71,13 +71,14 @@ export function Auth() {
 
       if (response.status === 200) {
         const token = response.data.token;
-        localStorage.setItem('token', token);
+        localStorage.setItem('token', token)
 
         // Set the authorization header
         setAuthorizationHeader(token);
 
         // Navigate to the desired route
-        history.push('/books');
+        const navigate = useNavigate()
+        navigate('/books')
       }
 
       return <Navigate to="/home" replace={true} />;
