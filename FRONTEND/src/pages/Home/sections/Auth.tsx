@@ -1,6 +1,5 @@
-import { AiFillGithub } from 'react-icons/ai'
+import { useHistory } from 'react-router-dom';
 import { BsGithub, BsGoogle } from 'react-icons/bs'
-import { redirect } from "react-router-dom";
 import { useState } from 'react'
 import axios from 'axios'
 import { Navigate, useNavigate } from "react-router-dom";
@@ -45,40 +44,47 @@ export function Auth() {
 
 
   /* Register */
+  const history = useHistory()
+  const setAuthorizationHeader = (token: string) => {
+    if (token) {
+      // Set the authorization header with the bearer token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      // Remove the authorization header if no token is provided
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  };
+
   async function Register() {
+    const payload = {
+      email: emailValue,
+      userName: userNameValue,
+      password: passwordValue,
+      passwordConfirm: confirmPasswordValue
+    };
 
-    const payload = {email: emailValue, userName: userNameValue, password: passwordValue, passwordConfirm: confirmPasswordValue}
-    
-    console.info('auth data:' + JSON.stringify(loginData)),
-      console.info('login value:' + loginValue),
-      console.info('password value:' + passwordValue)
-
-    
     try {
-      //sending request with loginData to server
-      const response = await axios.post<IRegister>('https://localhost:7123/api/Accounts/register', payload)
-  
-      if(response.status === 200) {
-        localStorage.setItem("token", response.data.token)
-        navigate('/books', { replace: true });
+      const response = await axios.post<IRegister>(
+        'https://localhost:7123/api/Accounts/register',
+        payload
+      );
+
+      if (response.status === 200) {
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+
+        // Set the authorization header
+        setAuthorizationHeader(token);
+
+        // Navigate to the desired route
+        history.push('/books');
       }
 
-      //response from server (isAuthorized true/false)
-
-      //isAuthorized
-      // const { token } = response.data
-      console.log(response.data)
-      // localStorage.setItem('token', token)
-      //send verification email
-      return <Navigate to="/home" replace={true} />
-
-      //!isAuthorized
-
+      return <Navigate to="/home" replace={true} />;
     } catch (AxiosError) {
-      setError(AxiosError)
+      setError(AxiosError);
     }
   }
-
 
 
 
