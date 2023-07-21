@@ -62,8 +62,6 @@ export function Auth() {
     };
 
     try {
-
-
       const response = await axios.post<IRegister>(
         'https://localhost:7123/api/Accounts/register',
         payload
@@ -78,7 +76,7 @@ export function Auth() {
 
         // Navigate to the desired route
         const navigate = useNavigate()
-        navigate('/books')
+        navigate('/about', { replace: true })
       }
 
       return <Navigate to="/home" replace={true} />;
