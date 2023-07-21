@@ -1,9 +1,9 @@
 import { AiFillGithub } from 'react-icons/ai'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
-
+import { redirect } from "react-router-dom";
 import { useState } from 'react'
 import axios from 'axios'
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type Variant = 'LOGIN' | 'REGISTER' | 'FORGOT'
 
@@ -13,6 +13,7 @@ interface IRegister {
   userName: string
   password: string
   passwordConfirm: string
+  token: string
 }
 
 
@@ -37,30 +38,30 @@ export function Auth() {
   const [emailValue, setEmailValue] = useState('')
   const [userNameValue, setUserNameValue] = useState('')
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
-  const [registerData, setRegisterData] = useState({
-    email: '',
-    userName: '',
-    password: '',
-    passwordConfirm: '',
-  })
 
 
-
+  const navigate = useNavigate()
 
 
 
   /* Register */
   async function Register() {
-    setRegisterData({
-      email: emailValue, userName: userNameValue, password: passwordValue, passwordConfirm: confirmPasswordValue
-    })
+
+    const payload = {email: emailValue, userName: userNameValue, password: passwordValue, passwordConfirm: confirmPasswordValue}
+    
     console.info('auth data:' + JSON.stringify(loginData)),
       console.info('login value:' + loginValue),
       console.info('password value:' + passwordValue)
 
+    
     try {
       //sending request with loginData to server
-      const response = await axios.post<IRegister>('https://localhost:7123/api/Accounts/register', registerData)
+      const response = await axios.post<IRegister>('https://localhost:7123/api/Accounts/register', payload)
+  
+      if(response.status === 200) {
+        localStorage.setItem("token", response.data.token)
+        navigate('/books', { replace: true });
+      }
 
       //response from server (isAuthorized true/false)
 
@@ -77,9 +78,6 @@ export function Auth() {
       setError(AxiosError)
     }
   }
-
-
-
 
 
 
