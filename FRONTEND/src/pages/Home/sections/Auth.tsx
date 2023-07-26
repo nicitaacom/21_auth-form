@@ -41,18 +41,17 @@ export function Auth() {
 
   /* Register */
 
-  const setAuthorizationHeader = (token: string) => {
-    if (token) {
-      // Set the authorization header with the bearer token
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-      // Remove the authorization header if no token is provided
-      delete axios.defaults.headers.common['Authorization'];
-    }
-  }
-
   async function Register() {
 
+    const setAuthorizationHeader = (token: string) => {
+      if (token) {
+        // Set the authorization header with the bearer token
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      } else {
+        // Remove the authorization header if no token is provided
+        delete axios.defaults.headers.common['Authorization'];
+      }
+    }
 
     const payload = {
       email: emailValue,
@@ -75,11 +74,11 @@ export function Auth() {
         setAuthorizationHeader(token);
 
         // Navigate to the desired route
-        const navigate = useNavigate()
-        navigate('/about', { replace: true })
+        return <Navigate to="/home" replace={true} />
       }
 
-      return <Navigate to="/home" replace={true} />;
+
+
     } catch (AxiosError) {
       setError(AxiosError);
     }
