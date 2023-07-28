@@ -41,9 +41,9 @@ export function Auth() {
 
   /* Register */
 
-  async function Register() {
+  const navigate = useNavigate()
+  async function register() {
 
-    const navigate = useNavigate()
 
     const setAuthorizationHeader = (token: string) => {
       if (token) {
@@ -88,7 +88,7 @@ export function Auth() {
 
 
   /* Login */
-  async function Login() {
+  async function login() {
 
 
 
@@ -123,7 +123,7 @@ export function Auth() {
 
 
   /* Recover */
-  async function Recover() {
+  async function recover() {
     //recover in the feature
   }
 
@@ -140,7 +140,7 @@ export function Auth() {
           <input className="rounded px-4 py-2 text-gray-400" type="email" placeholder="Email"
             value={loginValue} onChange={e => setLoginValue(e.target.value)} />
           <button className="px-4 py-2 bg-gray-400 rounded-xl"
-            onClick={() => { Recover() }}>Send email</button>
+            onClick={() => { recover() }}>Send email</button>
           <p>Remember your password? <a className={`text-emerald-400 cursor-pointer`} onClick={() => setVariant('LOGIN')}>
             {variant === 'FORGOT' ? 'Log in' : 'Forgot Password?'}
           </a></p>
@@ -165,7 +165,7 @@ export function Auth() {
             </div>
           </div>
           <button className="px-4 py-2 bg-gray-400 rounded-xl"
-            onClick={() => { Login() }}>Login</button>
+            onClick={() => { login() }}>Login</button>
           <div className='flex justify-center flex-wrap gap-2 overflow-x-hidden'>
             <button className="px-4 py-2 flex gap-x-4 bg-transparent border-[1px] border-[#aaaaaa] rounded-xl text-white"
               onClick={() => {/* BACKEND-Social-auth-with-google-provider*/ }}>
@@ -203,7 +203,7 @@ export function Auth() {
             </div>
           </div>
           <button className="px-4 py-2 bg-gray-400 rounded-xl"
-            onClick={() => { Register() }}>Register</button>
+            onClick={() => { register() }}>Register</button>
           <div className='flex justify-center flex-wrap gap-2 overflow-x-hidden'>
             <button className="px-4 py-2 flex gap-x-4 bg-transparent border-[1px] border-[#aaaaaa] rounded-xl text-white"
               onClick={() => {/* BACKEND-Social-auth-with-google-provider*/ }}>
