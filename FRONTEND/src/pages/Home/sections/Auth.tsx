@@ -78,7 +78,6 @@ export function Auth() {
       }
 
 
-
     } catch (AxiosError) {
       setError(AxiosError);
     }
