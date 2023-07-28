@@ -43,6 +43,8 @@ export function Auth() {
 
   async function Register() {
 
+    const navigate = useNavigate()
+
     const setAuthorizationHeader = (token: string) => {
       if (token) {
         // Set the authorization header with the bearer token
@@ -74,7 +76,7 @@ export function Auth() {
         setAuthorizationHeader(token);
 
         // Navigate to the desired route
-        return <Navigate to="/home" replace={true} />
+        navigate('/about', { replace: true })
       }
 
 
@@ -87,6 +89,9 @@ export function Auth() {
 
   /* Login */
   async function Login() {
+
+
+
     setLoginData({
       login: loginValue, password: passwordValue
     })
