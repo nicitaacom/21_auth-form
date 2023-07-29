@@ -55,7 +55,7 @@ export function Auth() {
 
     try {
       const response = await axios.post<IRegister>(
-        'https://localhost:7123/api/Accounts/register',
+        'https://localhost:7123/api/accounts/register',
         payload
       );
 
@@ -67,7 +67,7 @@ export function Auth() {
         setAuthorizationHeader(token);
 
         // Navigate to the desired route
-        navigate('/about', { replace: true })
+        navigate('/books', { replace: true })
       }
 
 
@@ -98,7 +98,7 @@ export function Auth() {
 
     try {
       //sending request with loginData to server
-      const response = await axios.post<ILogin>('https://localhost:7123/api/Accounts/login', payload)
+      const response = await axios.post<ILogin>('https://localhost:7123/api/accounts/login', payload)
 
       //response from server isAuthorized true
       if (response.status === 200) {
