@@ -19,14 +19,11 @@ export function Auth() {
   //values for login
   const [loginValue, setLoginValue] = useState('')
   const [passwordValue, setPasswordValue] = useState('')
-  const [loginData, setLoginData] = useState({
-    login: '',
-    password: ''
-  })
 
   //values for register
   const [emailValue, setEmailValue] = useState('')
   const [userNameValue, setUserNameValue] = useState('')
+  const [passwordRegValue, setPasswordRegValue] = useState('')
   const [confirmPasswordValue, setConfirmPasswordValue] = useState('')
 
 
@@ -46,17 +43,17 @@ export function Auth() {
       }
     }
 
-    const payload = {
+    const registerData = {
       email: emailValue,
       userName: userNameValue,
-      password: passwordValue,
+      password: passwordRegValue,
       passwordConfirm: confirmPasswordValue
     };
 
     try {
       const response = await axios.post<IRegister>(
         'https://localhost:7123/api/accounts/register',
-        payload
+        registerData
       );
 
       if (response.status === 200) {
@@ -91,14 +88,14 @@ export function Auth() {
       }
     }
 
-    const payload = {
-      email: emailValue,
+    const loginData = {
+      email: loginValue,
       password: passwordValue,
     };
 
     try {
       //sending request with loginData to server
-      const response = await axios.post<ILogin>('https://localhost:7123/api/accounts/login', payload)
+      const response = await axios.post<ILogin>('https://localhost:7123/api/accounts/login', loginData)
 
       //response from server isAuthorized true
       if (response.status === 200) {
@@ -189,7 +186,7 @@ export function Auth() {
             <input className="rounded px-4 py-2 text-gray-400" type="email" placeholder="Email"
               value={emailValue} onChange={e => setEmailValue(e.target.value)} />
             <input className="rounded px-4 py-2 text-gray-400" type="password" placeholder="Passowrd"
-              value={passwordValue} onChange={e => setPasswordValue(e.target.value)} />
+              value={passwordRegValue} onChange={e => setPasswordRegValue(e.target.value)} />
             <input className="rounded px-4 py-2 text-gray-400" type="password" placeholder="Confirm password"
               value={confirmPasswordValue} onChange={e => setConfirmPasswordValue(e.target.value)} />
             <div className='flex justify-between'>
