@@ -81,7 +81,7 @@ export function Auth() {
     const setAuthorizationHeader = (token: string) => {
       if (token) {
         // Set the authorization header with the bearer token
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Authorization ${token}`;
       } else {
         // Remove the authorization header if no token is provided
         delete axios.defaults.headers.common['Authorization'];
