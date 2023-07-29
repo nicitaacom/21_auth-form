@@ -106,7 +106,7 @@ export function Auth() {
         setAuthorizationHeader(token);
 
         // Navigate to the desired route
-        navigate('/about', { replace: true })
+        navigate('/books', { replace: true })
       }
 
       //response from server isAuthorized true
