@@ -160,7 +160,7 @@ export function Auth() {
             </button>
             <button className="px-4 py-2 flex gap-x-4 bg-transparent border-[1px] border-[#aaaaaa] rounded-xl text-white"
               onClick={() => {/* BACKEND-Social-auth-with-github-provider */ }}>
-              Continue with Google <BsGithub size={24} />
+              Continue with Github <BsGithub size={24} />
             </button>
           </div>
           <p className='text-center'>Don't have an account? <a className='text-emerald-400 cursor-pointer'

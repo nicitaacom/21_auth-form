@@ -15,6 +15,8 @@ export function Books() {
         {loading && <p>Loading...</p>}
         {error && <p className='text-center text-red-600'>{error}</p>}
         {books.map(book => <Book key={book.id} {...book} />)}
+        <button className="px-4 py-2 bg-gray-400 rounded-xl"
+          onClick={() => { /* api logout */ }}>Logout</button>
       </div>
     </>
   )
