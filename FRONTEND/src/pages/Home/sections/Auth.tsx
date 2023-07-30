@@ -1,7 +1,7 @@
 import { BsGithub, BsGoogle } from 'react-icons/bs'
 import { useState } from 'react'
 import axios from 'axios'
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ILogin, IRegister } from '../../../interfaces/IAuth';
 
 type Variant = 'LOGIN' | 'REGISTER' | 'FORGOT'
@@ -78,15 +78,6 @@ export function Auth() {
   /* Login */
   async function login() {
 
-    const setAuthorizationHeader = (token: string) => {
-      if (token) {
-        // Set the authorization header with the bearer token
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-      } else {
-        // Remove the authorization header if no token is provided
-        delete axios.defaults.headers.common['Authorization'];
-      }
-    }
 
     const loginData = {
       email: loginValue,
@@ -101,9 +92,6 @@ export function Auth() {
       if (response.status === 200) {
         const token = response.data.token;
         localStorage.setItem('token', token)
-
-        // Set the authorization header
-        setAuthorizationHeader(token);
 
         // Navigate to the desired route
         navigate('/books', { replace: true })
