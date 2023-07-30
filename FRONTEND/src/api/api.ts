@@ -1,7 +1,6 @@
 // api.js
 
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 
 const api = axios.create({
   baseURL: "https://localhost:7123/api" // Replace with your API base URL
@@ -17,14 +16,16 @@ api.interceptors.request.use(
     return config
   },
   (error) => {
-    ;(() => {
-      const navigate = useNavigate()
-      if (error.status === 401) {
-        navigate("/", { replace: true })
-      }
-    })()
     return Promise.reject(error)
   }
 )
+
+api.interceptors.response.use(
+    response => response,
+    error => {
+          if (error.response.status === 401) {
+            window.location.href = '/';
+          }
+    });
 
 export default api
