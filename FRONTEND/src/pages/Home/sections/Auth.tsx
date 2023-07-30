@@ -3,6 +3,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { ILogin, IRegister } from '../../../interfaces/IAuth';
+import api from '../../../api/api';
 
 type Variant = 'LOGIN' | 'REGISTER' | 'FORGOT'
 
@@ -51,8 +52,8 @@ export function Auth() {
     };
 
     try {
-      const response = await axios.post<IRegister>(
-        'https://localhost:7123/api/accounts/register',
+      const response = await api.post<IRegister>(
+        '/accounts/register',
         registerData
       );
 
@@ -86,7 +87,7 @@ export function Auth() {
 
     try {
       //sending request with loginData to server
-      const response = await axios.post<ILogin>('https://localhost:7123/api/accounts/login', loginData)
+      const response = await api.post<ILogin>('/accounts/login', loginData)
 
       //response from server isAuthorized true
       if (response.status === 200) {

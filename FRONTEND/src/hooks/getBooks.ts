@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { AxiosError } from "axios"
+import api from "../api/api"
 
 export function useBooks() {
   const [books, setBooks] = useState<any[]>([])
@@ -9,9 +10,8 @@ export function useBooks() {
   async function fetchBooks() {
     try {
       setLoading(true)
-      const response = await fetch("https://localhost:7123/api/BookStore/")
-      const data = await response.json()
-      setBooks(data.books)
+      const response = await api.get("/BookStore/")
+      setBooks(response.data.books)
       setLoading(false)
     } catch (e: unknown) {
       const error = e as AxiosError
