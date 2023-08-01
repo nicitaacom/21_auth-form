@@ -1,10 +1,12 @@
 import { useBooks } from "../../../hooks/getBooks"
 import { Book } from '../../../components'
+import { useNavigate } from "react-router-dom"
 
 
 
 export function Books() {
 
+  const navigate = useNavigate()
   const { loading, error, books } = useBooks()
 
   return (
@@ -16,7 +18,7 @@ export function Books() {
         {error && <p className='text-center text-red-600'>{error}</p>}
         {books.map(book => <Book key={book.id} {...book} />)}
         <button className="px-4 py-2 bg-gray-400 rounded-xl"
-          onClick={() => { /* api logout */ }}>Logout</button>
+          onClick={() => { localStorage.removeItem('token'); navigate('/', { replace: true }) }}>Logout</button>
       </div>
     </>
   )
